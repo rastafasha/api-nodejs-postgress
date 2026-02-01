@@ -65,7 +65,7 @@ const crearJuego = async (req, res) => {
   }
 }
 
-const actulizarJuego = async (req, res) => {
+const actualizarJuego = async (req, res) => {
     try {
         const { id } = req.params;
         const {nombre, genero, plataforma, precio, fecha_lanzamiento, desarrollador, description } = req.body;
@@ -119,6 +119,6 @@ module.exports = {
   getGames,
   getGameById,
     crearJuego,
-    actulizarJuego,
+    actualizarJuego,
     borrarJuego
 };

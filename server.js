@@ -1,13 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const { probarConexion, pool } = require('./src/conf/db');
-const { getGames
-, getGameById,
-    crearJuego,
-    actulizarJuego,
-    borrarJuego
- } = require('./src/controllers/gamesController');
+const express = require("express");
+const cors = require("cors");
+const { probarConexion, pool } = require("./src/conf/db");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,20 +12,20 @@ app.use(express.json());
 
 // Function to start the server
 const iniciarServidor = async () => {
-    try{
-        await probarConexion();
-        app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
-    }catch(error){
-        console.error('No se pudo iniciar el servidor', error);
-    }
-}
+  try {
+    await probarConexion();
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("No se pudo iniciar el servidor", error);
+  }
+};
 iniciarServidor();
 
-// Routes
-app.get('/', (req, res) => {
-    res.send(`
+// landing routes
+app.get("/", (req, res) => {
+  res.send(`
         <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,17 +58,8 @@ app.get('/', (req, res) => {
         <p>Servidor Activo</p>
     </div>
 </body>
-</html>`)
+</html>`);
 });
 
-app.get('/api/games', getGames);
-app.get('/api/games/:id', getGameById);
-app.post('/api/games/store', crearJuego);
-app.put('/api/games/update/:id', actulizarJuego);
-app.put('/api/games/delete/:id', borrarJuego);
-
-
-
-
-
-
+// Routes
+app.get("/api/games", './routes/games.routes.js');
